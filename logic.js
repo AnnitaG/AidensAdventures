@@ -4,6 +4,7 @@ var isCrouching = false;
 var isMovingLeft = false;
 var isMovingRight = false;
 var playerY = 0;
+var playerX = 0; 
 var moveSpeed = 5;
 var crouchHeight = 50;
 
@@ -35,28 +36,30 @@ window.onload = function() {
     // draw Aid
 
 function movePlayer() {
-  if (isJumping) {
-    if (playerY >= groundY) {
-	playerY -= jumpForce;
-	isJumping = false;
+  if (isJumping && playerY >= groundY) {
+    playerY -= jumpForce;
+    isJumping = false;
+  }
 	
   }
 }
   if (isCrouching) {
-    playerY = crouchHeight;
-  } else {
-	playerY = 0; 
+    playerElement.style.height = crouchHeight + "px";
+  }else{
+    playerElement.style.height = "50px";
   }
 
   if (isMovingLeft) {
-	playerY -= moveSpeed; 
+	playerX -= moveSpeed; 
   }
 
   if (isMovingRight) {
-	playerY += moveSpeed;
+	playerX += moveSpeed;
   }
+// updated player position
 
-
+  playerElement.style.left = playerX + "px";
+  playerElement.style.left = playerY + "px";
 }
 
 
