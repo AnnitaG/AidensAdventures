@@ -1,3 +1,4 @@
+
 // board
 let board;
 let boardWidth = 800;
@@ -52,6 +53,7 @@ window.onload = function() {
     requestAnimationFrame(update);
     setInterval(placeMonsters, 3500); //every 2.5 seconds
 }
+
 function update() {
     requestAnimationFrame(update);
     context.clearRect(0,0,  board.width, board.height);
@@ -79,5 +81,84 @@ function placeMonsters() {
     monsterArray.push(monster);
 }
 
+var isJumping = false;
+var isCrouching = false;
+var isMovingLeft = false;
+var isMovingRight = false;
+var moveSpeed = 5;
+var crouchHeight = 50;
 
+function movePlayer() {{
+    if (isJumping && AidenY >= groundY) {
+      AidenY -= jumpForce;
+      isJumping = false;
+    }
+      
+    }
+    
+    if (isCrouching) {
+      AidenY.style.height = crouchHeight + "px";
+    } else {
+      AidenY.style.height = "50px";
+    }
+  
+    if (isMovingLeft) {
+      AidenX -= moveSpeed; 
+    }
+  
+    if (isMovingRight) {
+      AidenX += moveSpeed;
+    }
+  // updated player position
+  
+    AidenY.style.left = AidenX + "px";
+    AidenX.style.left = AidenY + "px";
+  }
+  
+  
+  document.addEventListener("keydown", function(event) {
+    switch(event.key) {
+      case "w":
+        isJumping = true;
+        break;
+      case "s":
+        isCrouching = true;
+        break;
+      case "a":
+        isMovingLeft = true;
+        break;
+      case "d":
+        isMovingRight = true;
+        break;
+    }
+  });
+  
+  
+  document.addEventListener("keyup", function(event) {
+    switch(event.key) {
+      case "w":
+        isJumping = false;
+        break;
+      case "s":
+        isCrouching = false;
+        break;
+      case "a":
+        isMovingLeft = false;
+        break;
+      case "d":
+        isMovingRight = false;
+        break;
+    }
+});
 
+function gameLoop() {
+{
+    
+    movePlayer();
+    
+    requestAnimationFrame(gameLoop);
+  }
+  
+}
+gameLoop();
+playBackgroundMusic();  
